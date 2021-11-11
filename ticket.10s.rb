@@ -1,5 +1,7 @@
 #!/usr/bin/env ruby
 
+# frozen_string_literal: true
+
 # <bitbar.title>Kitt Tickets</bitbar.title>
 # <bitbar.version>v1.0</bitbar.version>
 # <bitbar.author>Sébastien Saunier</bitbar.author>
@@ -15,6 +17,7 @@ BATCH_SLUG = 737
 require 'net/http'
 require 'json'
 
+# General-purpose class for the plugin
 class Plugin
   attr_reader :slug
 
@@ -33,23 +36,23 @@ class Plugin
   end
 
   def emoji
-    return "🍕" if @status["lunch_break"]
+    return '🍕' if @status['lunch_break']
 
-    case @status["color"]
-    when "red" then "😱"
-    when "orange" then "😨"
-    when "green" then "😇"
+    case @status['color']
+    when 'red' then '😱'
+    when 'orange' then '😨'
+    when 'green' then '😇'
     else
-      "😴"
+      '😴'
     end
   end
 
   def color
-    @status["color"] == "grey" ? "gray" : @status["color"]
+    @status['color'] == 'grey' ? 'gray' : @status['color']
   end
 end
 
 plugin = Plugin.new(BATCH_SLUG)
-puts "#{[plugin.emoji, plugin.count].join(" ")}|color=#{plugin.color}"
-puts "---"
+puts "#{[plugin.emoji, plugin.count].join(' ')}|color=#{plugin.color}"
+puts '---'
 puts "Go to Kitt - Tickets ##{plugin.slug}|href=#{plugin.tickets_url}"
